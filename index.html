@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拼音教室 · 第六课 声母</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── DESIGN TOKENS ─────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* ★ Purple — 组一 */
+  --purple:       #efcef8;
+  --purple-mid:   #d9a8f0;
+  --purple-deep:  #7B2FBE;
+  --purple-text:  #4A007A;
+
+  /* ★ Blue — 组二 */
+  --blue:         #cde8ff;
+  --blue-mid:     #8bc0e8;
+  --blue-deep:    #1565C0;
+  --blue-text:    #0D3A6E;
+  --sh-blue:      0 4px 16px rgba(21,101,192,.28);
+
+  /* ★ Teal — 组三 (重点) */
+  --teal:         #c2f0e8;
+  --teal-mid:     #74cfc0;
+  --teal-deep:    #00897B;
+  --teal-text:    #00352E;
+  --sh-teal:      0 4px 16px rgba(0,137,123,.25);
+
+  /* CTA */
+  --yellow:       #ffed00;
+  --yellow-dk:    #e8d600;
+  --yellow-text:  #1A1200;
+  --yellow-tint:  rgba(255,237,0,.15);
+
+  /* Feedback */
+  --green:        #1DB954;
+  --green-tint:   rgba(29,185,84,.12);
+  --green-text:   #0A5C29;
+  --red:          #E74C3C;
+  --red-tint:     rgba(231,76,60,.09);
+
+  /* Neutrals */
+  --bg:           #F7F3FF;
+  --surface:      #FFFFFF;
+  --ink:          #1A1A1A;
+  --muted:        #555555;
+  --faint:        #888888;
+  --separator:    rgba(0,0,0,.08);
+
+  /* Glass */
+  --glass:        rgba(255,255,255,.80);
+  --glass-border: rgba(255,255,255,.90);
+  --blur:         blur(24px) saturate(180%);
+  --blur-sm:      blur(14px) saturate(160%);
+
+  /* Shadows */
+  --sh-card:   0 1px 3px rgba(0,0,0,.06), 0 4px 14px rgba(0,0,0,.07);
+  --sh-float:  0 2px 8px rgba(0,0,0,.06), 0 12px 36px rgba(0,0,0,.10), inset 0 1px 0 rgba(255,255,255,.6);
+  --sh-yellow: 0 4px 16px rgba(255,237,0,.45);
+  --sh-purple: 0 4px 16px rgba(123,47,190,.35);
+
+  /* Typography */
+  --fp:'M PLUS Rounded 1c',sans-serif;
+  --fc:'Noto Sans SC',sans-serif;
+
+  /* Radius */
+  --r-sm:10px;--r-md:14px;--r-lg:18px;
+  --r-xl:22px;--r-2xl:28px;--r-pill:999px;
+}
+
+html,body{height:100%;font-family:var(--fc);background:var(--bg);color:var(--ink);overflow-x:hidden;}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(ellipse 70% 70% at 15% 10%, rgba(175,82,222,.12) 0%,transparent 65%),
+    radial-gradient(ellipse 55% 55% at 85% 20%, rgba(239,206,248,.40) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(194,240,232,.20) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 60% at 80% 75%, rgba(205,232,255,.22) 0%,transparent 65%),
+    var(--bg);
+}
+
+/* ─── SCREENS ────────────────────────────────────── */
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
+
+/* ─── LANGUAGE FLAGS ─────────────────────────────── */
+.lang-section{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.lang-lbl{font-size:.65rem;font-weight:700;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+.flags{display:flex;gap:2px}
+.flag-btn{background:none;border:1.5px solid transparent;cursor:pointer;font-size:1.3rem;padding:2px 4px;border-radius:8px;opacity:.38;transition:all .15s;line-height:1;}
+.flag-btn:hover{opacity:.78;transform:scale(1.1)}
+.flag-btn.active{opacity:1;background:var(--yellow-tint);border-color:rgba(255,237,0,.5)}
+
+/* ─── SHARED TOPBAR ──────────────────────────────── */
+.page-topbar{display:flex;justify-content:space-between;align-items:flex-start;padding:1.6rem 2rem 0;width:100%;max-width:900px;margin:0 auto;}
+.page-topbar-title{font-family:var(--fc);font-size:1.35rem;font-weight:700;color:var(--ink)}
+
+/* ─── BUTTONS ─────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:.62rem 1.5rem;border-radius:var(--r-pill);font-family:var(--fp);font-size:.9rem;font-weight:800;cursor:pointer;border:2px solid transparent;transition:all .18s cubic-bezier(.4,0,.2,1);user-select:none;}
+.btn:active{transform:scale(.97)!important;filter:brightness(.94)}
+.btn-primary{background:var(--yellow);color:var(--yellow-text);border-color:var(--yellow);box-shadow:var(--sh-yellow);}
+.btn-primary:hover{background:var(--yellow-dk);border-color:var(--yellow-dk);transform:translateY(-1px)}
+.btn-secondary{background:rgba(123,47,190,.1);color:var(--purple-deep);border-color:var(--purple-deep);}
+.btn-secondary:hover{background:rgba(123,47,190,.16);transform:translateY(-1px)}
+.btn-ghost{background:var(--glass);backdrop-filter:var(--blur-sm);-webkit-backdrop-filter:var(--blur-sm);color:var(--muted);border:.5px solid var(--glass-border);box-shadow:var(--sh-card);}
+.btn-ghost:hover{background:rgba(255,255,255,.95)}
+.btn-danger{background:var(--red-tint);color:var(--red);border-color:rgba(231,76,60,.3)}
+.btn-danger:hover{background:rgba(231,76,60,.14)}
+.btn-full{width:100%} .btn-lg{padding:.82rem 2rem;font-size:1rem}
+
+/* ─── LOGIN ───────────────────────────────────────── */
+#screen-login{align-items:center;justify-content:center;padding:2rem}
+.login-outer{width:min(420px,100%);display:flex;flex-direction:column;gap:1rem;align-items:flex-end}
+.login-lang-row{align-self:stretch;display:flex;justify-content:flex-end}
+.login-card{
+  width:100%;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  border-radius:var(--r-2xl);border:.5px solid var(--glass-border);box-shadow:var(--sh-float);
+  padding:2rem 2rem 2.2rem;display:flex;flex-direction:column;align-items:center;gap:1.6rem;
+}
+.login-icon-row{display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center}
+.app-icon{
+  width:60px;height:60px;border-radius:16px;
+  background:linear-gradient(159deg,rgba(171,90,213,.59) 26.89%,rgba(241,223,74,.65) 87.82%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fp);font-size:1.75rem;font-weight:800;color:#fff;box-shadow:var(--sh-purple);
+}
+.app-name{font-family:var(--fc);font-size:1.2rem;font-weight:700;color:var(--ink)}
+.app-sub{font-size:.78rem;color:var(--muted)}
+.login-fields{width:100%;display:flex;flex-direction:column;gap:.9rem}
+.field-group{display:flex;flex-direction:column;gap:.32rem}
+.field-label{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;padding-left:.2rem}
+.pink-input{
+  width:100%;padding:.7rem 1rem;
+  background:rgba(255,255,255,.7);border:.5px solid rgba(255,255,255,.95);
+  border-bottom:.5px solid var(--separator);border-radius:var(--r-md);
+  font-size:.98rem;font-family:var(--fc);outline:none;color:var(--ink);transition:all .15s;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.04);
+}
+.pink-input:focus{background:rgba(255,255,255,.92);border-color:var(--purple-mid);box-shadow:0 0 0 3px rgba(239,206,248,.55),inset 0 1px 3px rgba(0,0,0,.04);}
+.field-hint{font-size:.72rem;color:var(--faint);padding-left:.2rem}
+.login-error{font-size:.78rem;color:var(--red);min-height:1.2em;text-align:center}
+
+/* ─── PROGRESS ────────────────────────────────────── */
+#screen-progress{background:#FFFFFF;align-items:center;justify-content:center;padding:2rem 1rem;text-align:center;position:relative;overflow:hidden;}
+#screen-progress::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle 380px at 15% 20%,rgba(239,206,248,.55) 0%,transparent 70%),
+    radial-gradient(circle 280px at 85% 75%,rgba(194,240,232,.35) 0%,transparent 70%),
+    radial-gradient(circle 250px at 70% 15%,rgba(255,237,0,.14)   0%,transparent 70%);
+}
+.prog-bg-star{position:absolute;pointer-events:none;animation:fltStar 3s ease-in-out infinite;opacity:0;z-index:0}
+@keyframes fltStar{0%{transform:translateY(0) scale(.7);opacity:0}30%{opacity:.9}80%{opacity:.3}100%{transform:translateY(-70px) scale(1.1);opacity:0}}
+.prog-badge{display:inline-block;position:relative;z-index:1;background:linear-gradient(110deg,rgba(136,0,255,.99),rgba(255,217,0,.68));color:#1A0A00;border-radius:var(--r-pill);padding:.25rem 1.1rem;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 3px 12px rgba(255,150,0,.45);animation:fadeUp .4s ease .1s both;}
+.prog-title{font-family:var(--fc);font-size:2.4rem;font-weight:700;color:#1A1A1A;margin:.5rem 0 .2rem;animation:popBig .52s cubic-bezier(.34,1.56,.64,1) .3s both;position:relative;z-index:1;}
+.prog-subtitle{font-size:.78rem;color:#666;letter-spacing:.05em;animation:fadeUp .4s ease .5s both;position:relative;z-index:1}
+.prog-level-ring{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;width:72px;height:72px;border-radius:50%;margin:.9rem 0 .4rem;background:#FFF3B0;border:3px solid #FFD900;box-shadow:0 0 0 6px rgba(255,217,0,.15),0 4px 16px rgba(255,150,0,.3);animation:fadeUp .4s ease .48s both;}
+.prog-lv-num{font-family:var(--fp);font-size:1.7rem;font-weight:800;color:#CC8800;line-height:1}
+.prog-lv-label{font-size:.48rem;color:#AA7700;letter-spacing:.1em;text-transform:uppercase}
+.prog-path{display:flex;align-items:flex-end;justify-content:center;gap:0;margin:1rem auto 1.4rem;max-width:650px;position:relative;z-index:1}
+.prog-node{display:flex;flex-direction:column;align-items:center;gap:5px;animation:nodePop .42s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes nodePop{from{transform:scale(0) translateY(14px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.prog-connector{width:24px;height:4px;border-radius:var(--r-pill);flex-shrink:0;background:#E0E0E0;margin-bottom:28px}
+.prog-connector.conn-done{background:linear-gradient(90deg,#FFD900,#FFC107)}
+.prog-connector.conn-cur{background:linear-gradient(90deg,#FFC107,#E0E0E0)}
+.prog-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.prog-circle.done{background:#FFD900;border:3px solid #E8C200;box-shadow:0 3px 10px rgba(255,217,0,.5)}
+.prog-circle.current{width:68px;height:68px;font-size:1.75rem;background:oklch(35.596% 0.18826 267.923);border:3px solid #98cae0;animation:nodePop .42s cubic-bezier(.34,1.56,.64,1) both,glowSapphire 2s ease-in-out 1.2s infinite;}
+@keyframes glowSapphire{0%,100%{box-shadow:0 0 0 4px rgba(21,101,192,.28),0 4px 16px rgba(21,101,192,.45)}50%{box-shadow:0 0 0 10px rgba(21,101,192,.08),0 4px 24px rgba(21,101,192,.65)}}
+.prog-circle.locked{background:#E5E5E5;border:3px solid #C8C8C8;font-size:.82rem;color:#A0A0A0}
+.prog-node-num{font-size:.52rem;color:#BBBBBB;font-weight:700;letter-spacing:.06em}
+.prog-node-label{font-size:.6rem;font-weight:600;max-width:54px;line-height:1.35;text-align:center;white-space:pre;color:#999}
+.prog-node-label.lbl-done{color:#997700;font-weight:700}
+.prog-node-label.lbl-cur{color:#0D47A1;font-weight:800;font-size:.65rem}
+.prog-ach-card{position:relative;z-index:1;background:#FFFFFF;border:2px solid var(--purple);border-radius:var(--r-xl);padding:1rem 1.8rem;margin:0 auto 1.5rem;max-width:360px;box-shadow:0 4px 20px rgba(123,47,190,.15);animation:fadeUp .5s ease 2.4s both;}
+.prog-ach-card .ach-icon{font-size:1.5rem;margin-bottom:.2rem}
+.prog-ach-card .ach-name{font-weight:700;font-size:.92rem;color:#1A1A1A;margin-bottom:.15rem}
+.prog-ach-card .ach-done{font-size:.72rem;color:#555}
+.prog-ach-card .ach-done span{color:#886600;font-weight:700}
+.prog-ach-card .ach-done .cur-span{color:var(--purple-deep);font-weight:700}
+.prog-go-btn{position:relative;z-index:1;animation:fadeUp .45s ease 2.9s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes popBig{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ─── HOME ────────────────────────────────────────── */
+#screen-home{padding-bottom:3rem}
+.home-body{flex:1;width:100%;max-width:900px;margin:0 auto;padding:1.5rem 2rem;display:flex;flex-direction:column;align-items:center}
+.click-hint{font-size:.8rem;color:var(--muted);margin-bottom:.9rem;letter-spacing:.03em}
+.finals-row-home{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:.4rem}
+
+/* Group containers */
+.nasal-group{width:100%;display:flex;flex-direction:column;align-items:center;margin-bottom:1.4rem}
+.nasal-group-header{display:flex;align-items:center;gap:10px;margin-bottom:.7rem}
+.nasal-group-tag{background:var(--purple-deep);color:#fff;border-radius:var(--r-pill);padding:.22rem .88rem;font-family:var(--fp);font-size:.68rem;font-weight:800;letter-spacing:.08em;}
+.nasal-group-tag.two{background:var(--blue-deep)}
+.nasal-group-tag.three{background:var(--teal-deep)}
+.nasal-group-sub{font-size:.7rem;color:var(--muted);font-weight:600;letter-spacing:.04em}
+.nasal-group-sub.two{color:var(--blue-deep)}
+.nasal-group-sub.three{color:var(--teal-deep);font-weight:800}
+
+/* ★ Initial flashcards */
+.final-card-home{
+  width:82px;height:80px;
+  background:var(--purple);border:1.5px solid var(--purple-mid);border-radius:var(--r-xl);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  cursor:pointer;user-select:none;
+  box-shadow:0 2px 8px rgba(123,47,190,.12),inset 0 1px 0 rgba(255,255,255,.5);
+  transition:all .22s cubic-bezier(.34,1.56,.64,1);
+}
+.final-card-home:hover{transform:translateY(-6px) scale(1.04);background:#e5bcf6;border-color:var(--purple-deep);box-shadow:0 8px 24px rgba(123,47,190,.22),inset 0 1px 0 rgba(255,255,255,.5);}
+.final-card-home:active{transform:translateY(-2px) scale(.98)}
+.final-card-home .fc-py{font-family:var(--fp);font-size:1.75rem;font-weight:800;color:var(--purple-text);line-height:1;pointer-events:none;}
+.final-card-home .fc-py.long{font-size:1.25rem}
+.final-card-home .fc-sub{font-size:.52rem;color:var(--purple-deep);opacity:.55;pointer-events:none;font-family:var(--fp);font-weight:700}
+/* Blue — 组二 */
+.final-card-home.two{background:var(--blue);border-color:var(--blue-mid);box-shadow:0 2px 8px rgba(21,101,192,.10),inset 0 1px 0 rgba(255,255,255,.5);}
+.final-card-home.two:hover{background:#b8d8f8;border-color:var(--blue-deep);box-shadow:0 8px 24px rgba(21,101,192,.20),inset 0 1px 0 rgba(255,255,255,.5);}
+.final-card-home.two .fc-py{color:var(--blue-text)}
+.final-card-home.two .fc-sub{color:var(--blue-deep)}
+/* Teal — 组三 */
+.final-card-home.three{background:var(--teal);border-color:var(--teal-mid);box-shadow:0 2px 8px rgba(0,137,123,.10),inset 0 1px 0 rgba(255,255,255,.5);}
+.final-card-home.three:hover{background:#a5e8d8;border-color:var(--teal-deep);box-shadow:0 8px 24px rgba(0,137,123,.18),inset 0 1px 0 rgba(255,255,255,.5);}
+.final-card-home.three .fc-py{color:var(--teal-text)}
+.final-card-home.three .fc-sub{color:var(--teal-deep)}
+/* ★ Playing → yellow */
+.final-card-home.playing{background:var(--yellow);border-color:var(--yellow-dk);transform:translateY(-4px);box-shadow:var(--sh-yellow);}
+.final-card-home.playing .fc-py{color:var(--yellow-text)}
+.final-card-home.playing .fc-sub{color:#8B7700;opacity:.8}
+.home-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.home-actions .btn{min-width:165px;font-size:.98rem;padding:.8rem 1.6rem}
+.home-note{margin-top:1.8rem;max-width:680px;font-size:.73rem;color:var(--faint);line-height:1.85;text-align:center}
+
+/* ─── REVIEW ──────────────────────────────────────── */
+#screen-review{padding-bottom:2rem}
+.review-body{width:100%;max-width:900px;margin:0 auto;padding:1rem 2rem}
+.review-hint{display:flex;align-items:center;gap:.6rem;background:rgba(255,237,0,.12);border:1.5px solid rgba(255,237,0,.35);border-radius:var(--r-md);padding:.5rem 1rem;font-size:.8rem;color:#5C4A00;margin-bottom:1.4rem;font-weight:500;}
+.review-top-row{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:1rem}
+.rev-group-chip{font-size:.6rem;font-weight:800;letter-spacing:.06em;padding:.2rem .65rem;border-radius:var(--r-pill);background:var(--purple-deep);color:#fff;display:inline-block;flex-shrink:0;}
+.rev-group-chip.two{background:var(--blue-deep)}
+.rev-group-chip.three{background:var(--teal-deep)}
+.rev-group-sep{width:1px;height:22px;background:rgba(0,0,0,.12);margin:0 2px;align-self:center;flex-shrink:0}
+.rev-card{background:rgba(239,206,248,.4);border:1.5px solid var(--purple-mid);border-radius:var(--r-sm);padding:.35rem .7rem;cursor:pointer;font-family:var(--fp);font-size:1.05rem;font-weight:800;color:var(--purple-text);transition:all .15s;user-select:none;}
+.rev-card:hover{background:var(--purple);border-color:var(--purple-deep)}
+.rev-card.selected{background:var(--yellow);color:var(--yellow-text);border-color:var(--yellow-dk);box-shadow:var(--sh-yellow)}
+.rev-card.two{background:rgba(205,232,255,.45);border-color:var(--blue-mid);color:var(--blue-text)}
+.rev-card.two:hover{background:var(--blue);border-color:var(--blue-deep)}
+.rev-card.two.selected{background:var(--yellow);color:var(--yellow-text);border-color:var(--yellow-dk);box-shadow:var(--sh-yellow)}
+.rev-card.three{background:rgba(194,240,232,.45);border-color:var(--teal-mid);color:var(--teal-text)}
+.rev-card.three:hover{background:var(--teal);border-color:var(--teal-deep)}
+.rev-card.three.selected{background:var(--yellow);color:var(--yellow-text);border-color:var(--yellow-dk);box-shadow:var(--sh-yellow)}
+
+/* Detail card — replaces tone row for initials */
+.rev-detail-wrap{margin:.2rem 0 1.5rem;min-height:130px;display:flex;align-items:center;justify-content:center;}
+.rev-detail-empty{font-size:.82rem;color:var(--faint);text-align:center;padding:2.5rem;width:100%;}
+.rev-detail-card{
+  background:var(--glass);backdrop-filter:var(--blur-sm);-webkit-backdrop-filter:var(--blur-sm);
+  border:.5px solid var(--glass-border);border-radius:var(--r-xl);box-shadow:var(--sh-float);
+  padding:1.4rem 2rem;display:flex;align-items:center;gap:1.8rem;
+  animation:fadeUp .25s ease;
+  width:100%;max-width:480px;
+}
+.rev-detail-left{display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rev-detail-init{
+  font-family:var(--fp);font-size:3.8rem;font-weight:800;color:var(--purple-text);
+  line-height:1;min-width:80px;text-align:center;
+}
+.rev-detail-init.gi-two{color:var(--blue-text)}
+.rev-detail-init.gi-three{color:var(--teal-text)}
+.rev-detail-right{display:flex;flex-direction:column;gap:.35rem;flex:1}
+.rev-detail-syllable{font-family:var(--fp);font-size:1.85rem;font-weight:700;color:var(--ink);line-height:1}
+.rev-detail-char-row{display:flex;align-items:center;gap:.5rem}
+.rev-detail-char{font-family:var(--fc);font-size:1.15rem;color:var(--muted)}
+.rev-detail-play{
+  margin-top:.3rem;align-self:flex-start;
+  background:var(--yellow);color:var(--yellow-text);
+  border:2px solid var(--yellow-dk);border-radius:var(--r-pill);
+  padding:.3rem 1rem;font-family:var(--fp);font-size:.82rem;font-weight:800;
+  cursor:pointer;box-shadow:var(--sh-yellow);transition:all .15s;
+}
+.rev-detail-play:hover{background:var(--yellow-dk);transform:translateY(-1px)}
+.rev-detail-play:active{transform:scale(.97)}
+/* Confusable badge */
+.confusable-note{
+  font-size:.65rem;font-weight:700;letter-spacing:.04em;
+  background:var(--teal);color:var(--teal-text);border:1.5px solid var(--teal-mid);
+  border-radius:var(--r-pill);padding:.15rem .6rem;display:inline-block;margin-top:.2rem;
+}
+.review-back{margin-top:2rem;display:flex;justify-content:center}
+
+/* ─── PRACTICE ─────────────────────────────────────── */
+.practice-topbar{display:flex;align-items:center;gap:.6rem;padding:.7rem 1.5rem;background:rgba(255,255,255,.85);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border-bottom:.5px solid var(--separator);box-shadow:0 1px 0 rgba(255,255,255,.6);}
+.nav-btn{background:rgba(255,255,255,.72);backdrop-filter:var(--blur-sm);-webkit-backdrop-filter:var(--blur-sm);border:.5px solid var(--glass-border);border-radius:var(--r-pill);padding:.28rem .82rem;font-size:.74rem;cursor:pointer;font-family:var(--fc);color:var(--muted);transition:all .15s;white-space:nowrap;box-shadow:var(--sh-card);}
+.nav-btn:hover{background:rgba(255,255,255,.95);color:var(--ink)}
+.progress-wrap{flex:1;display:flex;align-items:center;gap:.55rem}
+.prog-track{flex:1;height:7px;background:rgba(0,0,0,.07);border-radius:var(--r-pill);overflow:hidden}
+.prog-fill{height:100%;border-radius:var(--r-pill);transition:width .35s ease;background:linear-gradient(90deg,var(--purple-deep),var(--teal-deep),var(--yellow))}
+.prog-count{font-size:.74rem;color:var(--muted);font-weight:700;white-space:nowrap;min-width:32px;text-align:right}
+.practice-subbar{display:flex;align-items:center;gap:8px;padding:.4rem 1.5rem;background:rgba(255,255,255,.65);backdrop-filter:var(--blur-sm);-webkit-backdrop-filter:var(--blur-sm);border-bottom:.5px solid var(--separator);}
+.practice-body{flex:1;display:flex;align-items:center;justify-content:center;padding:1.5rem 1rem}
+.quiz-box{width:100%;max-width:520px;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border-radius:var(--r-2xl);border:.5px solid var(--glass-border);box-shadow:var(--sh-float);padding:1.8rem 1.8rem 2.2rem;display:flex;flex-direction:column;align-items:center;gap:1.15rem;border-top:3px solid var(--purple-deep);}
+.quiz-instr{background:rgba(239,206,248,.35);border:1px solid var(--purple-mid);border-radius:var(--r-md);padding:.38rem 1rem;font-size:.84rem;font-weight:600;color:var(--purple-text);text-align:center;}
+.play-circle{width:82px;height:82px;border-radius:50%;background:var(--yellow);border:2px solid var(--yellow-dk);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--fp);font-size:.86rem;font-weight:800;color:var(--yellow-text);flex-shrink:0;transition:all .18s cubic-bezier(.4,0,.2,1);box-shadow:var(--sh-yellow);}
+.play-circle:hover{background:var(--yellow-dk);transform:scale(1.08);box-shadow:0 6px 22px rgba(255,237,0,.55)}
+.play-circle:active{transform:scale(.97)}
+.play-arrow{width:0;height:0;border-style:solid;border-width:13px 0 13px 22px;border-color:transparent transparent transparent var(--yellow-text);margin-left:5px}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;width:100%}
+.opt-card{
+  background:rgba(255,255,255,.75);border:1.5px solid var(--purple-mid);border-radius:var(--r-lg);
+  padding:.9rem .4rem;min-height:80px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  font-family:var(--fp);font-size:2rem;font-weight:800;
+  color:var(--ink);transition:all .18s cubic-bezier(.34,1.56,.64,1);user-select:none;box-shadow:var(--sh-card);
+}
+.opt-card:hover:not(.locked){transform:scale(1.03);background:var(--purple);border-color:var(--purple-deep);color:var(--purple-text)}
+.opt-card:active:not(.locked){transform:scale(.98)}
+.opt-card.locked{cursor:default}
+.opt-card.user-pick{background:var(--yellow);border-color:var(--yellow-dk);color:var(--yellow-text)}
+.opt-card.show-correct{background:var(--green-tint);border-color:var(--green);color:var(--green-text);box-shadow:0 2px 10px rgba(29,185,84,.2)}
+.feedback-row{font-size:.92rem;font-weight:700;text-align:center;min-height:1.5rem;display:flex;flex-direction:column;align-items:center;gap:.22rem}
+.fb-correct{color:var(--green)} .fb-wrong{color:var(--red)}
+.fb-correct-answer{font-size:.78rem;font-weight:600;color:var(--muted)}
+.dict-area{display:flex;flex-direction:column;align-items:center;gap:.8rem;width:100%}
+.dict-input{width:min(220px,100%);padding:.68rem 1.1rem;background:rgba(255,255,255,.8);border:1.5px solid var(--purple-mid);border-radius:var(--r-md);font-family:var(--fp);font-size:2rem;font-weight:800;text-align:center;outline:none;color:var(--ink);transition:all .15s;}
+.dict-input:focus{border-color:var(--purple-deep);box-shadow:0 0 0 3px rgba(239,206,248,.55)}
+.dict-input.correct-state{background:var(--green-tint);border-color:var(--green)}
+.dict-input.wrong-state{background:var(--red-tint);border-color:var(--red)}
+.dict-input:disabled{opacity:.75}
+
+/* ─── RESULT ──────────────────────────────────────── */
+#screen-result{align-items:center;justify-content:center;padding:2rem}
+.result-inner{max-width:420px;width:100%;text-align:center;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:.5px solid var(--glass-border);border-radius:var(--r-2xl);box-shadow:var(--sh-float);padding:2.5rem 2rem;}
+.result-title{font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:1rem}
+.result-score-ring{width:132px;height:132px;border-radius:50%;background:rgba(239,206,248,.3);border:4px solid var(--purple-deep);display:inline-flex;align-items:center;justify-content:center;margin:.2rem auto .7rem;box-shadow:0 0 0 8px rgba(239,206,248,.18),var(--sh-purple);}
+.result-score-num{font-family:var(--fp);font-size:3.8rem;font-weight:800;color:var(--purple-deep);line-height:1}
+.result-label{font-size:.88rem;color:var(--muted);margin-bottom:.7rem}
+.result-perfect{font-size:.96rem;font-weight:700;color:var(--green);margin-bottom:.6rem;animation:popIn .4s ease}
+@keyframes popIn{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.result-list{text-align:left;margin:1rem 0;max-height:196px;overflow-y:auto;background:rgba(255,255,255,.6);border:.5px solid var(--purple-mid);border-radius:var(--r-md);padding:.5rem .8rem;}
+.ri{display:flex;align-items:center;gap:.55rem;padding:.28rem 0;border-bottom:.5px solid var(--separator);font-size:.76rem}
+.ri:last-child{border-bottom:none}
+.ri-icon{font-size:.8rem;min-width:18px} .ri-type{color:var(--faint);min-width:24px;font-size:.68rem}
+.ri-ans{font-family:var(--fp);font-weight:800;font-size:.88rem;color:var(--ink)} .ri-ua{color:var(--faint);font-size:.68rem}
+.result-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:1.5rem}
+
+/* ─── CONFETTI ────────────────────────────────────── */
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:9999;display:none}
+
+/* ─── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:520px){
+  .page-topbar{padding:1rem 1rem 0}
+  .home-body,.review-body{padding:.9rem 1rem}
+  .final-card-home{width:66px;height:64px;border-radius:14px}
+  .final-card-home .fc-py{font-size:1.5rem} .final-card-home .fc-py.long{font-size:1.05rem}
+  .opt-card{font-size:1.6rem;min-height:68px}
+  .play-circle{width:70px;height:70px}
+  .quiz-box{padding:1.2rem 1rem 1.6rem}
+  .practice-topbar,.practice-subbar{padding:.55rem .9rem}
+  .login-card{padding:1.6rem 1.4rem 1.8rem}
+  .result-score-ring{width:108px;height:108px} .result-score-num{font-size:3rem}
+  .prog-path{flex-wrap:wrap;gap:0 1px}
+  .prog-circle{width:40px;height:40px;font-size:.9rem}
+  .prog-circle.current{width:50px;height:50px;font-size:1.25rem}
+  .prog-connector{width:10px}
+  .prog-node-label{font-size:.5rem;max-width:44px}
+  .rev-detail-card{flex-direction:column;gap:1rem;padding:1.2rem 1.4rem}
+  .rev-detail-init{font-size:3rem;min-width:unset}
+  .rev-detail-right{align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ PROGRESS ══════════ -->
+<div id="screen-progress" class="screen">
+  <div id="prog-bg-stars"></div>
+  <div style="position:relative;z-index:1">
+    <div class="prog-badge">🏆 第六章 · 已解锁！</div>
+    <div class="prog-title">声母</div>
+    <div class="prog-subtitle">Initials · 声母 · 子音</div>
+  </div>
+  <div class="prog-level-ring">
+    <div class="prog-lv-num">6</div>
+    <div class="prog-lv-label">LEVEL</div>
+  </div>
+  <div class="prog-path" id="prog-path"></div>
+  <div class="prog-ach-card">
+    <div class="ach-icon">🏅</div>
+    <div class="ach-name">拼音探险家 · Lv.6</div>
+    <div class="ach-done">
+      已完成：<span>单韵母 · 声调 · 复韵母 · 鼻韵母 · 整体认读</span>&ensp;挑战中：<span class="cur-span">声母</span>
+    </div>
+  </div>
+  <div class="prog-go-btn">
+    <button class="btn btn-primary btn-lg" onclick="showScreen('home')">出发！🚀</button>
+  </div>
+</div>
+
+<!-- ══════════ LOGIN ══════════ -->
+<div id="screen-login" class="screen active">
+  <div class="login-outer">
+    <div class="login-lang-row">
+      <div class="lang-section">
+        <span class="lang-lbl" data-i18n="chooseLang">Choose language:</span>
+        <div class="flags" data-flag-group>
+          <button class="flag-btn active" data-lang="en" onclick="setLang('en')">🇬🇧</button>
+          <button class="flag-btn" data-lang="ja"  onclick="setLang('ja')">🇯🇵</button>
+          <button class="flag-btn" data-lang="zh"  onclick="setLang('zh')">🇨🇳</button>
+          <button class="flag-btn" data-lang="es"  onclick="setLang('es')">🇪🇸</button>
+          <button class="flag-btn" data-lang="fr"  onclick="setLang('fr')">🇫🇷</button>
+        </div>
+      </div>
+    </div>
+    <div class="login-card">
+      <div class="login-icon-row">
+        <div class="app-icon" style="font-size:.85rem;letter-spacing:-.01em">Mimo</div>
+        <div class="app-name" data-i18n="appName">Mimo Pinyin Quiz</div>
+        <div class="app-sub"  data-i18n="welcome">欢迎可爱的学生们</div>
+      </div>
+      <div class="login-fields">
+        <div class="field-group">
+          <label class="field-label" for="inp-pw" data-i18n="pwLabel">密码</label>
+          <input id="inp-pw" type="password" class="pink-input" autocomplete="off">
+          <p class="field-hint" data-i18n="pwHint">请输入老师提供的数字密码</p>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="inp-nn" data-i18n="nnLabel">用户昵称</label>
+          <input id="inp-nn" type="text" class="pink-input" autocomplete="off">
+          <p class="field-hint" data-i18n="nnHint">优先输入你的出席番号</p>
+        </div>
+        <p id="login-err" class="login-error"></p>
+        <button id="login-btn" class="btn btn-primary btn-full btn-lg"
+          onclick="doLogin()" data-i18n="loginBtn"
+          disabled style="opacity:.4;cursor:not-allowed">进入课堂</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="screen-home" class="screen">
+  <div class="page-topbar">
+    <div class="page-topbar-title" data-i18n="lessonTitle">第六课 声母</div>
+    <div class="lang-section">
+      <span class="lang-lbl" data-i18n="chooseLang">Choose language:</span>
+      <div class="flags" data-flag-group>
+        <button class="flag-btn" data-lang="en" onclick="setLang('en')">🇬🇧</button>
+        <button class="flag-btn" data-lang="ja" onclick="setLang('ja')">🇯🇵</button>
+        <button class="flag-btn" data-lang="zh" onclick="setLang('zh')">🇨🇳</button>
+        <button class="flag-btn" data-lang="es" onclick="setLang('es')">🇪🇸</button>
+        <button class="flag-btn" data-lang="fr" onclick="setLang('fr')">🇫🇷</button>
+      </div>
+    </div>
+  </div>
+  <div class="home-body">
+    <p class="click-hint" data-i18n="clickHint">👆 点击卡片，听发音</p>
+    <!-- 组一 -->
+    <div class="nasal-group">
+      <div class="nasal-group-header">
+        <div class="nasal-group-tag" data-i18n="groupOne">组一</div>
+        <div class="nasal-group-sub" data-i18n="groupOneSub">b p m f · d t n l</div>
+      </div>
+      <div class="finals-row-home" id="finals-row-one"></div>
+    </div>
+    <!-- 组二 -->
+    <div class="nasal-group">
+      <div class="nasal-group-header">
+        <div class="nasal-group-tag two" data-i18n="groupTwo">组二</div>
+        <div class="nasal-group-sub two" data-i18n="groupTwoSub">g k h · j q x</div>
+      </div>
+      <div class="finals-row-home" id="finals-row-two"></div>
+    </div>
+    <!-- 组三 重点 -->
+    <div class="nasal-group">
+      <div class="nasal-group-header">
+        <div class="nasal-group-tag three" data-i18n="groupThree">组三 ★</div>
+        <div class="nasal-group-sub three" data-i18n="groupThreeSub">zh/z · ch/c · sh/s · r　← 重点区分！</div>
+      </div>
+      <div class="finals-row-home" id="finals-row-three"></div>
+    </div>
+    <div class="home-actions">
+      <button class="btn btn-primary   btn-lg" onclick="startPractice(false)" data-i18n="startBtn">开始答题</button>
+      <button class="btn btn-secondary btn-lg" onclick="goReview()"           data-i18n="reviewBtn">复习一下</button>
+    </div>
+    <p class="home-note" data-i18n="homeNote">（声母共 21 个。组三是重点难点：zh/z、ch/c、sh/s 分别对应翘舌音与平舌音，日语中没有这一区分，需要特别练习！）</p>
+  </div>
+</div>
+
+<!-- ══════════ REVIEW ══════════ -->
+<div id="screen-review" class="screen">
+  <div class="page-topbar">
+    <div class="page-topbar-title" data-i18n="reviewTitle">第六课 复习声母</div>
+    <div class="lang-section">
+      <div class="flags" data-flag-group>
+        <button class="flag-btn" data-lang="en" onclick="setLang('en')">🇬🇧</button>
+        <button class="flag-btn" data-lang="ja" onclick="setLang('ja')">🇯🇵</button>
+        <button class="flag-btn" data-lang="zh" onclick="setLang('zh')">🇨🇳</button>
+        <button class="flag-btn" data-lang="es" onclick="setLang('es')">🇪🇸</button>
+        <button class="flag-btn" data-lang="fr" onclick="setLang('fr')">🇫🇷</button>
+      </div>
+    </div>
+  </div>
+  <div class="review-body">
+    <div class="review-hint">
+      <span>💡</span>
+      <span data-i18n="reviewHint">点击声母，听发音并查看代表音节</span>
+    </div>
+    <div class="review-top-row" id="rev-top-row"></div>
+    <!-- Detail card — replaces tone row -->
+    <div class="rev-detail-wrap">
+      <div class="rev-detail-empty" id="rev-detail-empty" data-i18n="revSelectHint">← 点击上方一个声母开始</div>
+      <div class="rev-detail-card" id="rev-detail-card" style="display:none">
+        <div class="rev-detail-left">
+          <div class="rev-detail-init" id="rev-detail-init">b</div>
+        </div>
+        <div class="rev-detail-right">
+          <div class="rev-detail-syllable" id="rev-detail-syllable">bō</div>
+          <div class="rev-detail-char-row">
+            <div class="rev-detail-char" id="rev-detail-char">波</div>
+          </div>
+          <div id="rev-confusable"></div>
+          <button class="rev-detail-play" id="rev-detail-play" data-i18n="revPlayBtn">▶ 播放</button>
+        </div>
+      </div>
+    </div>
+    <div class="review-back">
+      <button class="btn btn-ghost" onclick="showScreen('home')" data-i18n="backBtn">← 返回首页</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PRACTICE ══════════ -->
+<div id="screen-practice" class="screen">
+  <div class="practice-topbar">
+    <button class="nav-btn" onclick="prevQ()" data-i18n="prevBtn">← 上一题</button>
+    <div class="progress-wrap">
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:10%"></div></div>
+      <div class="prog-count" id="prog-count">1/10</div>
+    </div>
+    <button class="nav-btn" onclick="nextQ()" data-i18n="nextBtn">下一题 →</button>
+    <div class="flags" style="margin-left:.4rem" data-flag-group>
+      <button class="flag-btn" data-lang="en" onclick="setLang('en')">🇬🇧</button>
+      <button class="flag-btn" data-lang="ja" onclick="setLang('ja')">🇯🇵</button>
+      <button class="flag-btn" data-lang="zh" onclick="setLang('zh')">🇨🇳</button>
+      <button class="flag-btn" data-lang="es" onclick="setLang('es')">🇪🇸</button>
+      <button class="flag-btn" data-lang="fr" onclick="setLang('fr')">🇫🇷</button>
+    </div>
+  </div>
+  <div class="practice-subbar">
+    <button class="btn btn-ghost"  style="padding:.3rem .82rem;font-size:.76rem" onclick="showScreen('home')" data-i18n="backBtn">← 返回首页</button>
+    <button class="btn btn-danger" style="padding:.3rem .82rem;font-size:.76rem" onclick="endPractice()"     data-i18n="endBtn">终止答题</button>
+    <button class="nav-btn" onclick="restartPractice()" data-i18n="restartBtn">重新答题</button>
+  </div>
+  <div class="practice-body">
+    <div class="quiz-box" id="quiz-box"></div>
+  </div>
+</div>
+
+<!-- ══════════ RESULT ══════════ -->
+<div id="screen-result" class="screen">
+  <div class="result-inner">
+    <div class="result-title" data-i18n="resultTitle">答题完成！</div>
+    <div class="result-score-ring">
+      <div class="result-score-num" id="res-num">8</div>
+    </div>
+    <div class="result-label"><span data-i18n="scoreLabel">得分</span>：<span id="res-text">8 / 10</span></div>
+    <div class="result-perfect" id="res-perfect" style="display:none" data-i18n="perfectMsg">满分！太棒了！🎉</div>
+    <div class="result-list" id="res-list"></div>
+    <div class="result-actions">
+      <button class="btn btn-primary"  onclick="restartPractice()"   data-i18n="retryBtn">再练一遍</button>
+      <button class="btn btn-danger"   onclick="wrongOnlyPractice()" data-i18n="wrongOnlyBtn">错题训练</button>
+      <button class="btn btn-ghost"    onclick="showScreen('home')"  data-i18n="homeBtn">返回首页</button>
+    </div>
+  </div>
+</div>
+
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+/* ══ CONFIG ══════════════════════════════════════ */
+const CFG={
+  password:'202605',
+  totalQ:10, mcqCount:5, dictCount:5,
+  audioDir:'audio/',
+  audioExt:'.m4a',
+};
+
+/* ══ I18N ════════════════════════════════════════ */
+const I18N={
+  zh:{
+    welcome:'欢迎可爱的学生们',chooseLang:'选择语言',pwLabel:'密码',pwHint:'请输入老师提供的数字密码',
+    nnLabel:'用户昵称',nnHint:'优先输入你的出席番号',loginBtn:'进入课堂',
+    errPw:'密码错误，请重试',errNn:'请输入昵称',
+    lessonTitle:'第六课 声母',startBtn:'开始答题',reviewBtn:'复习一下',
+    clickHint:'👆 点击卡片，听发音',
+    groupOne:'组一',     groupOneSub:'b p m f · d t n l',
+    groupTwo:'组二',     groupTwoSub:'g k h · j q x',
+    groupThree:'组三 ★', groupThreeSub:'zh/z · ch/c · sh/s · r　← 重点区分！',
+    reviewTitle:'第六课 复习声母',
+    reviewHint:'点击声母，听发音并查看代表音节',
+    revSelectHint:'← 点击上方一个声母开始',revPlayBtn:'▶ 播放',
+    backBtn:'← 返回首页',
+    mcqInstr:'选择题：听音频，选出正确的声母',
+    dictInstr:'听写题：听音频，输入声母字母',
+    replayBtn:'重播',correctFb:'✅ 对了！',wrongFb:'❌ 不对',
+    correctAns:'正确答案是：',clickCorrect:'请点击正确答案',
+    prevBtn:'← 上一题',nextBtn:'下一题 →',endBtn:'终止答题',
+    restartBtn:'重新答题',submitBtn:'确认',resultTitle:'答题完成！',scoreLabel:'得分',
+    perfectMsg:'满分！太棒了！🎉',noWrong:'没有错题，真棒！',
+    retryBtn:'再练一遍',wrongOnlyBtn:'错题训练',homeBtn:'返回首页',
+    appName:'Mimo 拼音趣学',
+    homeNote:'（声母共 21 个。组三是重点难点：zh/z、ch/c、sh/s 分别对应翘舌音与平舌音，日语中没有这一区分，需要特别练习！）',
+    confusableLabel:'注意区分',
+  },
+  en:{
+    welcome:'Welcome, students!',chooseLang:'Language',pwLabel:'Password',pwHint:'Enter the password from your teacher',
+    nnLabel:'Nickname',nnHint:'Preferably your student number',loginBtn:'Enter',
+    errPw:'Wrong password, please try again',errNn:'Please enter a nickname',
+    lessonTitle:'Lesson 6: Initials',startBtn:'Start Quiz',reviewBtn:'Review',
+    clickHint:'👆 Click a card to hear its pronunciation',
+    groupOne:'Group 1',  groupOneSub:'b p m f · d t n l',
+    groupTwo:'Group 2',  groupTwoSub:'g k h · j q x',
+    groupThree:'Group 3 ★', groupThreeSub:'zh/z · ch/c · sh/s · r　← Key contrast!',
+    reviewTitle:'Review: Initials',
+    reviewHint:'Click an initial to hear it and see its example syllable',
+    revSelectHint:'← Click an initial above to start',revPlayBtn:'▶ Play',
+    backBtn:'← Back',
+    mcqInstr:'Multiple Choice: Listen and choose the correct initial',
+    dictInstr:'Dictation: Listen and type the initial letters',
+    replayBtn:'Replay',correctFb:'✅ Correct!',wrongFb:'❌ Incorrect',
+    correctAns:'Correct answer: ',clickCorrect:'Click the correct answer',
+    prevBtn:'← Prev',nextBtn:'Next →',endBtn:'End Quiz',
+    restartBtn:'Restart',submitBtn:'Submit',resultTitle:'Quiz Complete!',scoreLabel:'Score',
+    perfectMsg:'Perfect score! Amazing! 🎉',noWrong:'No mistakes — great job!',
+    retryBtn:'Try Again',wrongOnlyBtn:'Review Mistakes',homeBtn:'Home',
+    appName:'Mimo Pinyin Quiz',
+    homeNote:'(There are 21 initials. Group 3 is the key challenge: zh/z, ch/c, sh/s are retroflex vs. alveolar pairs — a distinction that doesn\'t exist in Japanese. Extra practice needed!)',
+    confusableLabel:'Compare with',
+  },
+  ja:{
+    welcome:'ようこそ！',chooseLang:'言語',pwLabel:'パスワード',pwHint:'先生から教えてもらったパスワードを入力してください',
+    nnLabel:'ニックネーム',nnHint:'出席番号を優先して入力してください',loginBtn:'入室する',
+    errPw:'パスワードが違います',errNn:'ニックネームを入力してください',
+    lessonTitle:'第6課 声母',startBtn:'練習開始',reviewBtn:'復習する',
+    clickHint:'👆 カードをクリックして発音を聞こう',
+    groupOne:'グループ1',  groupOneSub:'b p m f · d t n l',
+    groupTwo:'グループ2',  groupTwoSub:'g k h · j q x',
+    groupThree:'グループ3 ★', groupThreeSub:'zh/z · ch/c · sh/s · r　← 要注意！',
+    reviewTitle:'第6課 声母の復習',
+    reviewHint:'声母をクリックして発音と代表音節を確認しよう',
+    revSelectHint:'← 上の声母をクリックしてください',revPlayBtn:'▶ 再生',
+    backBtn:'← ホームへ',
+    mcqInstr:'選択問題：音声を聞いて正しい声母を選ぼう',
+    dictInstr:'書き取り：音声を聞いて声母を入力しよう',
+    replayBtn:'再生',correctFb:'✅ 正解！',wrongFb:'❌ 不正解',
+    correctAns:'正解は：',clickCorrect:'正解をクリックしてください',
+    prevBtn:'← 前へ',nextBtn:'次へ →',endBtn:'終了',
+    restartBtn:'やり直す',submitBtn:'確認',resultTitle:'終了！',scoreLabel:'得点',
+    perfectMsg:'満点！素晴らしい！🎉',noWrong:'間違いなし！',
+    retryBtn:'もう一度',wrongOnlyBtn:'間違えた問題',homeBtn:'ホームへ',
+    appName:'Mimo ピンインクイズ',
+    homeNote:'（声母は全部で21個あります。グループ3が重要ポイントです：zh/z・ch/c・sh/sはそれぞれ「巻き舌音」と「非巻き舌音」の対比で、日本語にはない区別です。重点練習が必要です！）',
+    confusableLabel:'比較',
+  },
+  es:{
+    welcome:'¡Bienvenidos!',chooseLang:'Idioma',pwLabel:'Contraseña',pwHint:'Ingresa la contraseña de tu profesor',
+    nnLabel:'Apodo',nnHint:'Ingresa tu número de estudiante',loginBtn:'Entrar',
+    errPw:'Contraseña incorrecta',errNn:'Ingresa un apodo',
+    lessonTitle:'Lección 6: Iniciales',startBtn:'Iniciar Quiz',reviewBtn:'Repasar',
+    clickHint:'👆 Haz clic para escuchar',
+    groupOne:'Grupo 1',  groupOneSub:'b p m f · d t n l',
+    groupTwo:'Grupo 2',  groupTwoSub:'g k h · j q x',
+    groupThree:'Grupo 3 ★', groupThreeSub:'zh/z · ch/c · sh/s · r　← ¡Contraste clave!',
+    reviewTitle:'Repaso: Iniciales',
+    reviewHint:'Haz clic en una inicial para escucharla y ver su sílaba',
+    revSelectHint:'← Haz clic en una inicial para comenzar',revPlayBtn:'▶ Reproducir',
+    backBtn:'← Volver',
+    mcqInstr:'Opción múltiple: Escucha y elige la inicial correcta',
+    dictInstr:'Dictado: Escucha y escribe la inicial',
+    replayBtn:'Repetir',correctFb:'✅ ¡Correcto!',wrongFb:'❌ Incorrecto',
+    correctAns:'Resp. correcta: ',clickCorrect:'Haz clic en la respuesta correcta',
+    prevBtn:'← Anterior',nextBtn:'Siguiente →',endBtn:'Terminar',
+    restartBtn:'Reiniciar',submitBtn:'Confirmar',resultTitle:'¡Quiz completo!',scoreLabel:'Puntuación',
+    perfectMsg:'¡Puntuación perfecta! 🎉',noWrong:'¡Sin errores!',
+    retryBtn:'Intentar de nuevo',wrongOnlyBtn:'Solo errores',homeBtn:'Inicio',
+    appName:'Mimo Quiz de Pīnyīn',
+    homeNote:'(Hay 21 iniciales. El Grupo 3 es el más difícil: zh/z, ch/c, sh/s son pares retroflexos vs. alveolares — una distinción que no existe en japonés. ¡Practica especialmente este grupo!)',
+    confusableLabel:'Comparar con',
+  },
+  fr:{
+    welcome:'Bienvenue !',chooseLang:'Langue',pwLabel:'Mot de passe',pwHint:'Entrez le mot de passe de votre professeur',
+    nnLabel:'Pseudo',nnHint:'Entrez votre numéro étudiant',loginBtn:'Entrer',
+    errPw:'Mot de passe incorrect',errNn:'Entrez un pseudo',
+    lessonTitle:'Leçon 6 : Initiales',startBtn:'Commencer',reviewBtn:'Réviser',
+    clickHint:'👆 Cliquez pour écouter',
+    groupOne:'Groupe 1',  groupOneSub:'b p m f · d t n l',
+    groupTwo:'Groupe 2',  groupTwoSub:'g k h · j q x',
+    groupThree:'Groupe 3 ★', groupThreeSub:'zh/z · ch/c · sh/s · r　← Contraste clé !',
+    reviewTitle:'Révision : Initiales',
+    reviewHint:'Cliquez sur une initiale pour écouter et voir sa syllabe',
+    revSelectHint:'← Cliquez sur une initiale pour commencer',revPlayBtn:'▶ Jouer',
+    backBtn:'← Retour',
+    mcqInstr:'QCM : Écoutez et choisissez la bonne initiale',
+    dictInstr:'Dictée : Écoutez et tapez les lettres de l\'initiale',
+    replayBtn:'Rejouer',correctFb:'✅ Correct !',wrongFb:'❌ Incorrect',
+    correctAns:'Bonne réponse : ',clickCorrect:'Cliquez sur la bonne réponse',
+    prevBtn:'← Précédent',nextBtn:'Suivant →',endBtn:'Terminer',
+    restartBtn:'Recommencer',submitBtn:'Valider',resultTitle:'Quiz terminé !',scoreLabel:'Score',
+    perfectMsg:'Score parfait ! Bravo ! 🎉',noWrong:'Aucune erreur !',
+    retryBtn:'Réessayer',wrongOnlyBtn:'Erreurs seulement',homeBtn:'Accueil',
+    appName:'Mimo Quiz de Pīnyīn',
+    homeNote:'(Il y a 21 initiales. Le Groupe 3 est le plus difficile : zh/z, ch/c, sh/s sont des paires rétroflexes vs. alvéolaires — une distinction absente en japonais. Pratiquez ce groupe en priorité !)',
+    confusableLabel:'Comparer avec',
+  },
+};
+let lang='en';
+function T(k){return(I18N[lang]||I18N.zh)[k]||I18N.zh[k]||k;}
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('[data-flag-group] .flag-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
+  document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=T(e.dataset.i18n));
+  if(curScreen==='home')     renderHome();
+  if(curScreen==='review')   renderReview();
+  if(curScreen==='practice') renderQ();
+  if(curScreen==='result')   renderResult();
+}
+
+/* ══ INITIALS DATA ═══════════════════════════════ */
+/* confusable: marks similar-sounding pairs for the review hint */
+const INITIALS=[
+  /* ── 组一: b p m f d t n l ── */
+  {id:'b', label:'b', group:'one', syllable:'bō', keyword:'波', tts:'波', confusable:'p'},
+  {id:'p', label:'p', group:'one', syllable:'pō', keyword:'坡', tts:'坡', confusable:'b'},
+  {id:'m', label:'m', group:'one', syllable:'mō', keyword:'摸', tts:'摸', confusable:null},
+  {id:'f', label:'f', group:'one', syllable:'fó', keyword:'佛', tts:'佛', confusable:null},
+  {id:'d', label:'d', group:'one', syllable:'dé', keyword:'得', tts:'得', confusable:'t'},
+  {id:'t', label:'t', group:'one', syllable:'tè', keyword:'特', tts:'特', confusable:'d'},
+  {id:'n', label:'n', group:'one', syllable:'nǐ', keyword:'你', tts:'你', confusable:'l'},
+  {id:'l', label:'l', group:'one', syllable:'lā', keyword:'拉', tts:'拉', confusable:'n'},
+  /* ── 组二: g k h j q x ── */
+  {id:'g', label:'g', group:'two', syllable:'gē', keyword:'歌', tts:'歌', confusable:'k'},
+  {id:'k', label:'k', group:'two', syllable:'kē', keyword:'科', tts:'科', confusable:'g'},
+  {id:'h', label:'h', group:'two', syllable:'hē', keyword:'喝', tts:'喝', confusable:null},
+  {id:'j', label:'j', group:'two', syllable:'jī', keyword:'鸡', tts:'鸡', confusable:'q'},
+  {id:'q', label:'q', group:'two', syllable:'qí', keyword:'旗', tts:'旗', confusable:'j'},
+  {id:'x', label:'x', group:'two', syllable:'xī', keyword:'西', tts:'西', confusable:null},
+  /* ── 组三: zh ch sh r z c s ── */
+  {id:'zh',label:'zh',group:'three',syllable:'zhī',keyword:'知', tts:'知', confusable:'z'},
+  {id:'ch',label:'ch',group:'three',syllable:'chī',keyword:'吃', tts:'吃', confusable:'c'},
+  {id:'sh',label:'sh',group:'three',syllable:'shī',keyword:'狮', tts:'狮', confusable:'s'},
+  {id:'r', label:'r', group:'three',syllable:'rì', keyword:'日', tts:'日', confusable:null},
+  {id:'z', label:'z', group:'three',syllable:'zì', keyword:'字', tts:'字', confusable:'zh'},
+  {id:'c', label:'c', group:'three',syllable:'cí', keyword:'词', tts:'词', confusable:'ch'},
+  {id:'s', label:'s', group:'three',syllable:'sī', keyword:'丝', tts:'丝', confusable:'sh'},
+];
+const FMAP=Object.fromEntries(INITIALS.map(f=>[f.id,f]));
+
+/* ══ AUDIO ═══════════════════════════════════════ */
+const _ac={};
+function _tryAudio(src,fb){
+  if(!_ac[src])_ac[src]=new Audio(src);
+  const a=_ac[src];a.currentTime=0;
+  a.play().catch(()=>{if(fb)fb();});
+}
+function _tts(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='zh-CN';u.rate=.75;speechSynthesis.speak(u);}
+function playInitial(id){const f=FMAP[id];_tryAudio(CFG.audioDir+'initials/'+id+CFG.audioExt,()=>_tts(f.tts));}
+function playFeedback(ok){_tryAudio(CFG.audioDir+'feedback/'+(ok?'correct':'wrong')+CFG.audioExt,()=>{});}
+
+/* ══ SCREENS ════════════════════════════════════ */
+let curScreen='login';
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  curScreen=name;
+  if(name==='home')   renderHome();
+  if(name==='review') renderReview();
+}
+function goReview(){showScreen('review');}
+
+/* ══ LOGIN ══════════════════════════════════════ */
+function doLogin(){
+  const pw=document.getElementById('inp-pw').value.trim();
+  const nn=document.getElementById('inp-nn').value.trim();
+  const err=document.getElementById('login-err');
+  if(pw!==CFG.password){err.textContent=T('errPw');return;}
+  if(!nn){err.textContent=T('errNn');return;}
+  err.textContent='';showProgressScreen(nn);
+}
+document.getElementById('inp-pw').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('inp-nn').focus();});
+document.getElementById('inp-nn').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function checkLoginReady(){
+  const ok=document.getElementById('inp-pw').value.trim().length>0&&document.getElementById('inp-nn').value.trim().length>0;
+  const btn=document.getElementById('login-btn');
+  btn.disabled=!ok;btn.style.opacity=ok?'1':'0.4';btn.style.cursor=ok?'pointer':'not-allowed';
+}
+document.getElementById('inp-pw').addEventListener('input',checkLoginReady);
+document.getElementById('inp-nn').addEventListener('input',checkLoginReady);
+
+/* ══ PROGRESS ═══════════════════════════════════ */
+const CHAPTERS=[
+  {num:1,label:'单韵母',        state:'done'},
+  {num:2,label:'声调',          state:'done'},
+  {num:3,label:'复韵母',        state:'done'},
+  {num:4,label:'鼻韵母',        state:'done'},
+  {num:5,label:'整体认读\n音节', state:'done'},
+  {num:6,label:'声母',          state:'current'},
+];
+const CH_ICON={done:'⭐',current:'🔥',locked:'🔒'};
+let nickname='';
+function showProgressScreen(nn){
+  nickname=nn;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-progress').classList.add('active');
+  curScreen='progress';
+  buildProgressPath();launchBgStars();setTimeout(launchConfetti,1500);
+}
+function buildProgressPath(){
+  const path=document.getElementById('prog-path');path.innerHTML='';
+  CHAPTERS.forEach((ch,i)=>{
+    if(i>0){const line=el('div','prog-connector');if(CHAPTERS[i-1].state==='done')line.classList.add('conn-done');if(CHAPTERS[i-1].state==='current')line.classList.add('conn-cur');path.appendChild(line);}
+    const node=el('div','prog-node');node.style.animationDelay=(.55+i*.17)+'s';
+    const circle=el('div','prog-circle '+ch.state);circle.textContent=CH_ICON[ch.state];if(ch.state==='current')circle.style.animationDelay=(.55+i*.17)+'s';
+    const num=el('div','prog-node-num');num.textContent='CH '+ch.num;
+    const lbl=el('div','prog-node-label lbl-'+ch.state);lbl.style.whiteSpace='pre';lbl.textContent=ch.label;
+    node.appendChild(circle);node.appendChild(num);node.appendChild(lbl);path.appendChild(node);
+  });
+}
+function launchBgStars(){
+  const wrap=document.getElementById('prog-bg-stars');wrap.innerHTML='';
+  const icons=['✦','✧','·','⋆','★','✶'];
+  for(let i=0;i<20;i++){
+    const s=el('div','prog-bg-star');s.textContent=icons[Math.floor(Math.random()*icons.length)];
+    const cols=['#FFD900','#efcef8','#58CC02','#c2f0e8','#7B2FBE','#cde8ff','#4FC3F7'];
+    s.style.cssText=`left:${Math.random()*95}%;bottom:${Math.random()*70}%;animation-delay:${Math.random()*3}s;animation-duration:${2.5+Math.random()*2}s;color:${cols[Math.floor(Math.random()*cols.length)]};font-size:${.7+Math.random()*.9}rem`;
+    wrap.appendChild(s);
+  }
+}
+
+/* ══ HOME ═══════════════════════════════════════ */
+function renderHome(){
+  ['one','two','three'].forEach(group=>{
+    const row=document.getElementById('finals-row-'+group);
+    row.innerHTML='';
+    INITIALS.filter(f=>f.group===group).forEach(f=>{
+      const isLong=f.label.length>1;
+      const card=el('div','final-card-home'+(group!=='one'?' '+group:''));
+      card.innerHTML='<span class="fc-py'+(isLong?' long':'')+'">'+f.label+'</span><span class="fc-sub">'+f.syllable+'</span>';
+      card.title=f.label+' — '+f.syllable+' '+f.keyword;
+      card.onclick=()=>{
+        document.querySelectorAll('.final-card-home').forEach(c=>c.classList.remove('playing'));
+        card.classList.add('playing');playInitial(f.id);
+        setTimeout(()=>card.classList.remove('playing'),1600);
+      };
+      row.appendChild(card);
+    });
+  });
+  applyI18n();
+}
+
+/* ══ REVIEW ═════════════════════════════════════ */
+let revSelId=null;
+function renderReview(){
+  revSelId=null;
+  const topRow=document.getElementById('rev-top-row');topRow.innerHTML='';
+  ['one','two','three'].forEach((group,gi)=>{
+    if(gi>0){const sep=el('div','rev-group-sep');topRow.appendChild(sep);}
+    const chip=el('span','rev-group-chip'+(group!=='one'?' '+group:''));
+    chip.textContent=group==='one'?'①':group==='two'?'②':'③';
+    topRow.appendChild(chip);
+    INITIALS.filter(f=>f.group===group).forEach(f=>{
+      const isLong=f.label.length>1;
+      const c=el('div','rev-card'+(group!=='one'?' '+group:''));
+      c.id='rv-'+f.id;c.textContent=f.label;
+      c.style.fontSize=isLong?'.9rem':'1.05rem';
+      c.onclick=()=>selRevInitial(f.id,group);
+      topRow.appendChild(c);
+    });
+  });
+  // Reset detail
+  document.getElementById('rev-detail-empty').style.display='block';
+  document.getElementById('rev-detail-card').style.display='none';
+  applyI18n();
+}
+function selRevInitial(id,group){
+  revSelId=id;
+  document.querySelectorAll('.rev-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('rv-'+id).classList.add('selected');
+  const f=FMAP[id];
+
+  document.getElementById('rev-detail-empty').style.display='none';
+  const card=document.getElementById('rev-detail-card');
+  card.style.display='flex';
+
+  const initEl=document.getElementById('rev-detail-init');
+  initEl.textContent=f.label;
+  initEl.className='rev-detail-init gi-'+group;
+
+  document.getElementById('rev-detail-syllable').textContent=f.syllable;
+  document.getElementById('rev-detail-char').textContent=f.keyword+' · '+f.syllable;
+
+  // Confusable pair badge
+  const confEl=document.getElementById('rev-confusable');
+  if(f.confusable&&FMAP[f.confusable]){
+    const cf=FMAP[f.confusable];
+    confEl.innerHTML='<span class="confusable-note">'+T('confusableLabel')+' → '+cf.label+' ('+cf.syllable+' '+cf.keyword+')</span>';
+  } else {
+    confEl.innerHTML='';
+  }
+
+  const playBtn=document.getElementById('rev-detail-play');
+  playBtn.onclick=()=>playInitial(id);
+  // Auto-play
+  playInitial(id);
+}
+
+/* ══ PRACTICE — GENERATION ══════════════════════ */
+let questions=[],answers=[],chance2=[],wrongPick=[],curQIdx=0;
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function genMCQ(id){
+  const correct=FMAP[id];
+  const pool=shuffle(INITIALS.filter(f=>f.id!==id));
+  return{type:'mcq',id,opts:shuffle([correct,...pool.slice(0,3)])};
+}
+function genDict(id){return{type:'dict',id};}
+function buildQuestions(){
+  const shuffled=shuffle([...INITIALS]);
+  return shuffle([
+    ...shuffled.slice(0,CFG.mcqCount).map(f=>genMCQ(f.id)),
+    ...shuffled.slice(CFG.mcqCount,CFG.mcqCount+CFG.dictCount).map(f=>genDict(f.id))
+  ]);
+}
+function startPractice(wrongOnly){
+  if(wrongOnly){
+    const wqs=questions.filter((_,i)=>answers[i]&&!answers[i].ok);
+    if(!wqs.length){alert(T('noWrong'));return;}
+    questions=wqs;answers=new Array(wqs.length).fill(null);
+    chance2=new Array(wqs.length).fill(false);wrongPick=new Array(wqs.length).fill(null);
+  } else {
+    questions=buildQuestions();answers=new Array(questions.length).fill(null);
+    chance2=new Array(questions.length).fill(false);wrongPick=new Array(questions.length).fill(null);
+  }
+  curQIdx=0;showScreen('practice');renderQ();
+}
+function wrongOnlyPractice(){startPractice(true);}
+function restartPractice(){startPractice(false);}
+
+/* ══ PRACTICE — RENDER ══════════════════════════ */
+function renderQ(){
+  if(!questions.length)return;
+  const q=questions[curQIdx],ans=answers[curQIdx],tot=questions.length;
+  document.getElementById('prog-fill').style.width=((curQIdx+1)/tot*100)+'%';
+  document.getElementById('prog-count').textContent=(curQIdx+1)+'/'+tot;
+  const box=document.getElementById('quiz-box');box.innerHTML='';
+  q.type==='mcq'?renderMCQ(q,ans,box):renderDict(q,ans,box);
+  applyI18n();
+}
+function renderMCQ(q,ans,box){
+  const instr=el('div','quiz-instr');instr.dataset.i18n='mcqInstr';instr.textContent=T('mcqInstr');box.appendChild(instr);
+  const pb=buildPlayBtn(ans||chance2[curQIdx],()=>playInitial(q.id));box.appendChild(pb);
+  if(!ans&&!chance2[curQIdx])setTimeout(()=>{playInitial(q.id);pb.classList.add('played');},300);
+  const grid=el('div','options-grid');
+  q.opts.forEach(opt=>{
+    const isCor=opt.id===q.id;
+    const isUp=ans&&ans.userPick===opt.id;
+    const wasWrong=!ans&&chance2[curQIdx]&&wrongPick[curQIdx]===opt.id;
+    const card=el('div','opt-card');
+    const isLong=opt.label.length>1;
+    card.style.fontSize=isLong?'1.5rem':'2rem';
+    card.textContent=opt.label;
+    if(ans){
+      card.classList.add('locked');
+      if(isUp&&!isCor)card.classList.add('user-pick');
+      if(isCor&&!ans.ok)card.classList.add('show-correct');
+      if(isUp&&isCor)card.classList.add('show-correct');
+    } else if(chance2[curQIdx]){
+      if(wasWrong){card.classList.add('user-pick','locked');}
+      else if(isCor){card.classList.add('show-correct');card.style.cursor='pointer';card.onclick=()=>submitMCQ(q,opt);}
+      else{card.classList.add('locked');}
+    } else {
+      card.onclick=()=>submitMCQ(q,opt);
+    }
+    grid.appendChild(card);
+  });
+  box.appendChild(grid);
+  if(chance2[curQIdx]&&!ans){
+    const hint=el('div','feedback-row fb-wrong');hint.style.marginTop='.4rem';
+    hint.innerHTML=T('wrongFb')+'<span class="fb-correct-answer"> '+T('clickCorrect')+'</span>';
+    box.appendChild(hint);
+  }
+  if(ans)box.appendChild(buildFeedback(ans,FMAP[q.id].label));
+}
+function submitMCQ(q,opt){
+  const ok=opt.id===q.id;
+  if(ok&&!chance2[curQIdx]){
+    answers[curQIdx]={ok:true,userPick:opt.id};
+    playFeedback(true);renderQ();autoNext(1300);
+  } else if(!ok&&!chance2[curQIdx]){
+    chance2[curQIdx]=true;wrongPick[curQIdx]=opt.id;
+    playFeedback(false);renderQ();
+  } else if(ok&&chance2[curQIdx]){
+    answers[curQIdx]={ok:false,userPick:wrongPick[curQIdx]};
+    playFeedback(true);renderQ();autoNext(900);
+  }
+}
+function renderDict(q,ans,box){
+  const instr=el('div','quiz-instr');instr.dataset.i18n='dictInstr';instr.textContent=T('dictInstr');box.appendChild(instr);
+  const pb=buildPlayBtn(ans||chance2[curQIdx],()=>playInitial(q.id));box.appendChild(pb);
+  if(!ans&&!chance2[curQIdx])setTimeout(()=>{playInitial(q.id);pb.classList.add('played');},300);
+  const area=el('div','dict-area');
+  const inp=el('input','dict-input');inp.type='text';inp.maxLength=2;inp.autocomplete='off';inp.autocapitalize='none';inp.spellcheck=false;
+  if(ans){inp.value=ans.ok?FMAP[q.id].label:ans.raw;inp.disabled=true;inp.classList.add(ans.ok?'correct-state':'wrong-state');}
+  const sub=el('button','btn btn-primary');sub.textContent=T('submitBtn');sub.dataset.i18n='submitBtn';
+  if(ans)sub.style.display='none';
+  sub.onclick=()=>submitDict(q,inp.value.trim());
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')sub.click();});
+  area.appendChild(inp);area.appendChild(sub);box.appendChild(area);
+  if(chance2[curQIdx]&&!ans){
+    const ab=el('div','');
+    ab.style.cssText='font-size:.88rem;background:var(--green-tint);border:1.5px solid var(--green);border-radius:10px;padding:.45rem .9rem;text-align:center;color:var(--green-text);';
+    ab.innerHTML=T('wrongFb')+' &nbsp;<span style="font-family:var(--fp);font-weight:800;font-size:1.1rem;margin-left:.3rem">'+T('correctAns')+' <strong>'+FMAP[q.id].label+'</strong></span>';
+    box.appendChild(ab);
+    setTimeout(()=>inp.focus(),60);
+  } else if(!ans){setTimeout(()=>inp.focus(),60);}
+  if(ans)box.appendChild(buildFeedback(ans,FMAP[q.id].label));
+}
+function submitDict(q,raw){
+  if(!raw)return;
+  const norm=raw.toLowerCase().replace(/\s/g,'');
+  const ok=norm===q.id;
+  if(ok&&!chance2[curQIdx]){
+    answers[curQIdx]={ok:true,raw};playFeedback(true);renderQ();autoNext(1300);
+  } else if(!ok&&!chance2[curQIdx]){
+    chance2[curQIdx]=true;playFeedback(false);renderQ();
+  } else if(ok&&chance2[curQIdx]){
+    answers[curQIdx]={ok:false,raw};playFeedback(true);renderQ();autoNext(900);
+  } else {
+    answers[curQIdx]={ok:false,raw};playFeedback(false);renderQ();autoNext(2000);
+  }
+}
+function buildPlayBtn(played,cb){
+  const btn=el('button','play-circle');
+  if(played){btn.classList.add('played');btn.textContent=T('replayBtn');btn.dataset.i18n='replayBtn';}
+  else{btn.innerHTML='<div class="play-arrow"></div>';}
+  btn.onclick=()=>{btn.classList.add('played');btn.textContent=T('replayBtn');btn.dataset.i18n='replayBtn';cb();};
+  return btn;
+}
+function buildFeedback(ans,correctLabel){
+  const fb=el('div','feedback-row');
+  if(ans.ok){fb.className='feedback-row fb-correct';fb.textContent=T('correctFb');}
+  else{fb.className='feedback-row fb-wrong';fb.innerHTML=T('wrongFb')+'<span class="fb-correct-answer">'+T('correctAns')+'<strong>'+correctLabel+'</strong></span>';}
+  return fb;
+}
+function el(tag,cls){const e=document.createElement(tag);e.className=cls||'';return e;}
+
+/* ══ NAVIGATION ════════════════════════════════ */
+function autoNext(ms){setTimeout(()=>{if(curQIdx<questions.length-1){curQIdx++;renderQ();}else endPractice();},ms||1300);}
+function prevQ(){if(curQIdx>0){curQIdx--;renderQ();}}
+function nextQ(){if(curQIdx<questions.length-1){curQIdx++;renderQ();}else endPractice();}
+function endPractice(){showScreen('result');renderResult();}
+
+/* ══ RESULT ════════════════════════════════════ */
+function greetingText(){
+  const n=nickname||'同学';
+  const g={
+    zh:[n+'同学，答题完成！','满分！'+n+'同学太棒了！🎉'],
+    en:['Well done, '+n+'!','Perfect score! Amazing, '+n+'! 🎉'],
+    ja:[n+'さん、お疲れ様でした！','満点！'+n+'さん、すごい！🎉'],
+    es:['¡Bien hecho, '+n+'!','¡Puntuación perfecta! ¡Increíble, '+n+'! 🎉'],
+    fr:['Bravo, '+n+' !','Score parfait ! Incroyable, '+n+' ! 🎉'],
+  };
+  return g[lang]||g.zh;
+}
+function renderResult(){
+  const tot=questions.length,ok=answers.filter(a=>a&&a.ok).length,perf=ok===tot&&tot>0;
+  const gt=greetingText();
+  const titleEl=document.querySelector('.result-title');if(titleEl)titleEl.textContent=gt[0];
+  document.getElementById('res-num').textContent=ok;
+  document.getElementById('res-text').textContent=ok+' / '+tot;
+  const pm=document.getElementById('res-perfect');pm.style.display=perf?'block':'none';
+  if(perf){pm.textContent=gt[1];launchConfetti();}
+  const ring=document.querySelector('.result-score-ring');
+  if(ring&&perf){ring.style.borderColor='var(--green)';ring.style.background='var(--green-tint)';ring.style.boxShadow='0 0 0 8px rgba(29,185,84,.08),0 4px 18px rgba(29,185,84,.2)';}
+  document.getElementById('res-num').style.color=perf?'var(--green)':'var(--purple-deep)';
+  const list=document.getElementById('res-list');list.innerHTML='';
+  questions.forEach((q,i)=>{
+    const a=answers[i],cor=FMAP[q.id].label;
+    const row=el('div','ri');
+    row.innerHTML='<span class="ri-icon">'+(a&&a.ok?'✅':a?'❌':'—')+'</span>'
+      +'<span class="ri-type">'+(q.type==='mcq'?'选':'写')+'</span>'
+      +'<span class="ri-ans">'+cor+'</span>'
+      +(a&&!a.ok?'<span class="ri-ua">'+(a.userPick||a.raw||'?')+'</span>':'');
+    list.appendChild(row);
+  });
+  applyI18n();
+}
+
+/* ══ CONFETTI ══════════════════════════════════ */
+function launchConfetti(){
+  const cv=document.getElementById('confetti-canvas');cv.style.display='block';cv.width=window.innerWidth;cv.height=window.innerHeight;
+  const ctx=cv.getContext('2d');
+  const cols=['#ffed00','#efcef8','#7B2FBE','#1DB954','#c2f0e8','#00897B','#cde8ff','#1565C0','#FFD700','#ffffff'];
+  const ps=Array.from({length:200},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.5,w:5+Math.random()*9,h:3+Math.random()*5,col:cols[Math.floor(Math.random()*cols.length)],rot:Math.random()*Math.PI*2,rv:(Math.random()-.5)*.12,vy:1.8+Math.random()*3,vx:(Math.random()-.5)*2}));
+  const t0=Date.now();
+  (function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);let alive=false;
+    ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.rot+=p.rv;if(p.y<cv.height+20)alive=true;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.col;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});
+    if(alive&&Date.now()-t0<7000)requestAnimationFrame(draw);else cv.style.display='none';
+  })();
+}
+
+/* ══ I18N + INIT ═══════════════════════════════ */
+function applyI18n(){
+  document.querySelectorAll('[data-flag-group] .flag-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=T(e.dataset.i18n));
+}
+applyI18n();
+</script>
+</body>
+</html>
